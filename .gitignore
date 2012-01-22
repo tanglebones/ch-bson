@@ -1,0 +1,10 @@
+*.dotCover
+*.docstates
+*.user
+*.suo
+*.nupkg
+_ReSharper.*
+bin/
+obj/
+build/
+packages/
