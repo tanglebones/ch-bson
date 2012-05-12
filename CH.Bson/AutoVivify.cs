@@ -8,15 +8,15 @@ namespace CH.Bson
     {
         public static BsonArray AvArray(this BsonValue bson, string path)
         {
-            return bson.AutoVivify(path, BsonType.Array).AsBsonArray;
+            return bson.AutoVivify(path, new BsonArray()).AsBsonArray;
         }
 
         public static BsonDocument AvDocument(this BsonValue bson, string path)
         {
-            return bson.AutoVivify(path, BsonType.Document).AsBsonDocument;
+            return bson.AutoVivify(path, new BsonDocument()).AsBsonDocument;
         }
 
-        public static BsonValue AutoVivify(this BsonValue bson, string path, BsonType type)
+        public static BsonValue AutoVivify(this BsonValue bson, string path, BsonValue defaultValue)
         {
             var cur = bson;
             var pa = SplitPath(path);
@@ -74,7 +74,7 @@ namespace CH.Bson
             if (i == pa.Length)
             {
                 // full path is contained in the tree
-                if (cur.BsonType != type)
+                if (cur.BsonType != defaultValue.BsonType)
                     throw new ArgumentException("bson type mismatch at path element " + path);
                 return cur;
             }
@@ -108,25 +108,11 @@ namespace CH.Bson
                 ++i;
             }
 
-            if (type == BsonType.Array)
-            {
-                var ba = new BsonArray();
-                if (cur.IsBsonArray)
-                    cur.AsBsonArray.Set(aslot, ba);
-                else
-                    cur.AsBsonDocument[akey] = ba;
-                cur = ba;
-            }
+            if (cur.IsBsonArray)
+                cur.AsBsonArray.Set(aslot, defaultValue);
             else
-            {
-                var bd = new BsonDocument();
-                if (cur.IsBsonArray)
-                    cur.AsBsonArray.Set(aslot, bd);
-                else
-                    cur.AsBsonDocument[akey] = bd;
-                cur = bd;
-            }
-            return cur;
+                cur.AsBsonDocument[akey] = defaultValue;
+            return defaultValue;
         }
     }
 }

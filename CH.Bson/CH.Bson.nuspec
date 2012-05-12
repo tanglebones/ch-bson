@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CH.Bson</id>
+    <version>1.1</version>
+    <authors>Clifford Hammerschmidt</authors>
+    <owners>Clifford Hammerschmidt</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://github.com/tanglebones/ch-bson</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Some handy bson extention methods.</description>
+    <tags>bson mongodb</tags>
+  </metadata>
+</package>
