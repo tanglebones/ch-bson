@@ -6,13 +6,13 @@
   "mongocsharpdriver" : {
    "version" : "1.1",
    "assembly" : {
-    "lib\\net35" : ["MongoDB.Bson, Version=1.0.0.4098, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL"]
+    "lib\\net35" : ["MongoDB.Bson"],
    }
   },
   "NUnit" : {
    "version" : "2.5.10.11092",
    "assembly" : {
-    "lib" : ["nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL"]
+    "lib" : ["nunit.framework"],
    }
   }
  }
