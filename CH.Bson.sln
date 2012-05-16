@@ -4,6 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH.Bson.Test", "CH.Bson.Tes
 EndProject
 
 
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CH.Bson", "CH.Bson\CH.Bson.csproj", "{E8F41004-8CE8-4BE6-855B-48762A423E94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77DBE644-624C-4DD7-849D-5E97166AA976}"
