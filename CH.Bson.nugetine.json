@@ -1,19 +1,21 @@
 {
  "nuget" : {
-  "NuGet official package source" : "https://nuget.org/api/v2/"
+  "NuGet official package source" : "https://nuget.org/api/v2/",
+  "madsrv01" : "\\\\madsrv01\\Packages"
  },
  "package" : {
   "mongocsharpdriver" : {
-   "version" : "1.4.2",
+   "version" : "1.5",
    "assembly" : {
-    "lib\\net35" : ["MongoDB.Bson"],
+    "lib\\net35" : ["MongoDB.Bson", "MongoDB.Driver"]
    }
   },
   "NUnit" : {
-   "version" : "2.5.10.11092",
+   "version" : "2.6.0.12054",
    "assembly" : {
-    "lib" : ["nunit.framework"],
+    "lib" : ["nunit.framework"]
    }
   }
- }
+ },
+ "source" : []
 }
