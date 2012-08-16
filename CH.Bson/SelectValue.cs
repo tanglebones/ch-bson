@@ -1,32 +1,32 @@
-﻿using System.Linq;
+﻿using System;
 using MongoDB.Bson;
 
 namespace CH.Bson
 {
     public static partial class BsonExtensions
     {
-        public static void Overlay(this BsonDocument bson, BsonDocument with)
+        public static BsonValue SelectValue(this BsonValue bson, string path, BsonValue returnIfNotFound = null)
         {
-            foreach (var element in with)
+            try
             {
-                if (bson.Contains(element.Name))
+                var pa = SplitPath(path);
+                foreach (var p in pa)
                 {
-                    var original = bson[element.Name];
-                    if (original.BsonType == element.Value.BsonType)
+                    if (p.StartsWith("["))
                     {
-                        if (original.BsonType == BsonType.Document)
-                        {
-                            bson[element.Name].AsBsonDocument.Overlay(element.Value.AsBsonDocument);
-                            continue;
-                        }
-                        if (original.BsonType == BsonType.Array)
-                        {
-                            bson[element.Name] = new BsonArray(original.AsBsonArray.Concat(element.Value.AsBsonArray));
-                            continue;
-                        }
+                        var index = Int32.Parse(p.Substring(1, p.Length - 2));
+                        bson = bson.AsBsonArray[index];
+                    }
+                    else
+                    {
+                        bson = bson.AsBsonDocument[p];
                     }
                 }
-                bson[element.Name] = element.Value;
+                return bson;
+            }
+            catch
+            {
+                return returnIfNotFound;
             }
         }
     }

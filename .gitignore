@@ -3,7 +3,8 @@
 *.user
 *.suo
 *.nupkg
-_ReSharper.*
+_ReSharper.*/
+_dotCover.*/
 bin/
 obj/
 build/
