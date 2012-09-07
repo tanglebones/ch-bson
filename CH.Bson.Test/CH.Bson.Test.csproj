@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="MongoDB.Bson">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(SolutionDir)\packages\mongocsharpdriver.1.5\lib\net35\MongoDB.Bson.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <SpecificVersion>False</SpecificVersion>
