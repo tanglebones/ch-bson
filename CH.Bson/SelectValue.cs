@@ -12,7 +12,7 @@ namespace CH.Bson
             try
             {
                 var pa = SplitPath(path);
-                bson = SelectValueFromPath(bson, pa, 0, pa.Length);
+                bson = SelectValueFromPath(bson, pa, 0, pa.Length) ?? returnIfNotFound;
                 return bson;
             }
             catch
@@ -27,12 +27,15 @@ namespace CH.Bson
             {
                 if (p.StartsWith("["))
                 {
+                    if (!bson.IsBsonArray) return null;
                     var index = Int32.Parse(p.Substring(1, p.Length - 2));
+                    if (bson.AsBsonArray.Count < index) return null;
                     bson = bson.AsBsonArray[index];
                 }
                 else
                 {
-                    bson = bson.AsBsonDocument[p];
+                    if (!bson.IsBsonDocument) return null;
+                    bson = bson.AsBsonDocument[p,null];
                 }
             }
             return bson;
