@@ -34,4 +34,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: InternalsVisibleTo("CH.Bson.Test")]
+[assembly: InternalsVisibleTo("CH.Bson.Test, PublicKey=002400000480000094000000060200000024000052534131000400000100010053a7d88364c8bdbba84fe6a71a9c59e668ac71846d8bb50454a4004f7cf65778f1f4ed80f4d3a47befc3cc1a676b9b4bc191491e7bfa24288517bec728a23f5ae053b2545555fd45a7197528cba2db88f7c4a66b80c307367df0e976c820d10154bdf08e28f4138589e09f75e5c5e63b89371792b15db2330ed9112bc8371fb3")]
