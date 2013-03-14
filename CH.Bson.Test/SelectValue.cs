@@ -25,6 +25,32 @@ namespace CH.Bson.Test
         }
 
         [Test]
+        public void SelectValueOfMissingBsonArray()
+        {
+            // Arrange
+            var bson = new BsonDocument();
+
+            // Act
+            var value = bson.SelectValue("missing[0]");
+
+            // Assert
+            Assert.IsNull(value);
+        }
+
+        [Test]
+        public void SelectValueOfEmptyBsonArray()
+        {
+            // Arrange
+            var bson = new BsonDocument("empty", new BsonArray());
+
+            // Act
+            var value = bson.SelectValue("empty[0]");
+
+            // Assert
+            Assert.IsNull(value);
+        }
+
+        [Test]
         public void SelectValueReturnsNullWhenHasException()
         {
             // Arrange

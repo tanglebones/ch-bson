@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 
@@ -6,12 +7,8 @@ namespace CH.Bson
 {
     public static partial class BsonExtensions
     {
+        [ExcludeFromCodeCoverage]
         public static BsonDocument ParseBsonDocument(this string json)
-        {
-            return ParseBsonDocumentNoCover(json);
-        }
-
-        private static BsonDocument ParseBsonDocumentNoCover(string json)
         {
             var stringReader = new StringReader(json);
             {

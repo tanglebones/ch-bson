@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
 
@@ -18,8 +19,13 @@ namespace CH.Bson
 
         public static BsonValue AutoVivify(this BsonValue bson, string path, BsonValue defaultValue)
         {
-            var cur = bson;
             var pa = SplitPath(path);
+            return AutoVivifyFromPath(bson, defaultValue, pa);
+        }
+
+        private static BsonValue AutoVivifyFromPath(BsonValue bson, BsonValue defaultValue, string[] pa)
+        {
+            var cur = bson;
             var i = 0;
 
             var aslot = 0;
@@ -75,7 +81,7 @@ namespace CH.Bson
             {
                 // full path is contained in the tree
                 if (cur.BsonType != defaultValue.BsonType)
-                    throw new ArgumentException("bson type mismatch at path element " + path);
+                    throw new ArgumentException("bson type mismatch at path element " + string.Join(".",pa));
                 return cur;
             }
 
