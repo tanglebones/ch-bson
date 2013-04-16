@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using MongoDB.Bson;
@@ -52,9 +53,28 @@ namespace CH.Bson
 
         public static BsonDocument Diff(this BsonDocument a, BsonDocument b)
         {
+            var bson = ProcessDifferencesInDocument(a, b);
+
+
+            bson.Add(ProcessFields(a, b));
+
+            return bson;
+        }
+
+        private static IEnumerable<BsonElement> ProcessFields(this BsonDocument a, BsonDocument b)
+        {
+            return from e in a.Where(e => b.Contains(e.Name))
+                   let d = Diff(e.Value, b[e.Name])
+                   where d.ElementCount > 0
+                   select new BsonElement(e.Name, d);
+        }
+
+        private static BsonDocument ProcessDifferencesInDocument(this BsonDocument a, BsonDocument b)
+        {
+            var bson = new BsonDocument();
+
             if (!a.HasSameElementNamesAs(b))
             {
-                var bson = new BsonDocument();
                 foreach (var e in a.Where(e => !b.Contains(e.Name)))
                 {
                     bson.SetElement(new BsonElement("+a:" + e.Name, e.Value));
@@ -63,20 +83,9 @@ namespace CH.Bson
                 {
                     bson.SetElement(new BsonElement("+b:" + e.Name, e.Value));
                 }
-                return bson;
             }
-            else
-            {
-                var bson = new BsonDocument();
 
-                foreach (var e in a)
-                {
-                    var d = Diff(e.Value, b[e.Name]);
-                    if (d.ElementCount > 0)
-                        bson.Add(e.Name, d);
-                }
-                return bson;
-            }
+            return bson;
         }
     }
 }
