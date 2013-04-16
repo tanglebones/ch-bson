@@ -7,6 +7,24 @@ namespace CH.Bson.Test
     public sealed partial class BsonExtensionsTests
     {
         [Test]
+        public void SelectValuePathDoesntMatchDocument()
+        {
+            // Arrange
+            var bson =
+                new BsonArray
+                    {
+                        new BsonArray {1, 2},
+                        new BsonArray {new BsonDocument("a",1), 4}
+                    };
+
+            // Act
+            // Assert
+            Assert.IsNull(bson.SelectValue("a"));
+            Assert.IsNull(bson.SelectValue("[1][0][4]"));
+            Assert.IsNull(bson.SelectValue("[4]"));
+        }
+
+        [Test]
         public void SelectValueOfBsonArray()
         {
             // Arrange
