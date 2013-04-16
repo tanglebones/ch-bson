@@ -118,8 +118,8 @@ namespace CH.Bson.Test
                             new BsonDocument
                                 {
                                     new BsonElement(
-                                        "values differ",
-                                        new BsonDocument {{"a", 1}, {"b", 2}})
+                                "values differ",
+                                new BsonDocument {{"a", 1}, {"b", 2}})
                                 }
                             )
                     };
@@ -249,6 +249,42 @@ namespace CH.Bson.Test
 
             // Assert
             Assert.That(value, Is.EqualTo(expectedDiff));
+        }
+
+        [Test]
+        public void DiffAFieldAddedAndAFieldModified()
+        {
+            var a = new BsonDocument();
+            var b = new BsonDocument();
+
+            const string existingField = "existingField";
+            const string newField = "newField";
+
+            const int newExistingFieldValue = 1;
+            const int oldExistingFieldValue = 2;
+            const int newFieldValue = 3;
+
+            a.SetValue(existingField, newExistingFieldValue);
+            a.SetValue(newField, newFieldValue);
+            b.SetValue(existingField, oldExistingFieldValue);
+
+            var expectedDiff = new BsonDocument
+                {
+                    {"+a:newField", 3},
+                    {
+                        existingField, new BsonDocument
+                            {
+                                {
+                                    "values differ",
+                                    new BsonDocument {{"a", newExistingFieldValue}, {"b", oldExistingFieldValue}}
+                                }
+                            }
+                    }
+                };
+
+            var result = a.Diff(b);
+
+            Assert.That(result, Is.EqualTo(expectedDiff));
         }
     }
 }
